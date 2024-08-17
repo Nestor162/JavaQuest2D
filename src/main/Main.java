@@ -16,6 +16,8 @@ public class Main {
 		window.add(gamePanel);
 		
 		window.pack();
+		
+		gamePanel.startGameThread();
 	}
 
 }
