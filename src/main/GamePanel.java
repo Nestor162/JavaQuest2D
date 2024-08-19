@@ -8,13 +8,16 @@ import java.awt.Toolkit;
 
 import javax.swing.JPanel;
 
+import entities.Player;
+
 public class GamePanel extends JPanel implements Runnable {
 
 	// SCREEN SETTINGS
 	final int originalTileSize = 16; // 16x16px tile size
 	final int scale = 3; // scaling factor of 3 for correct display on modern resolutions
-	final int tileSize = originalTileSize * scale; // the actual size displayed, 3 times bigger than original size
-													// (48x48px)
+	public final int tileSize = originalTileSize * scale; // the actual size displayed, 3 times bigger than original
+															// size
+	// (48x48px)
 	final int maxScreenCol = 16;
 	final int maxScreenRow = 12;
 	final int screenWidth = tileSize * maxScreenCol; // 718px
@@ -27,10 +30,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 	Thread gameThread;
 
-	// set player default position
-	int playerX = 100;
-	int playerY = 100;
-	int playerSpeed = 4;
+	Player player = new Player(this, keyHandler);
 
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -38,6 +38,7 @@ public class GamePanel extends JPanel implements Runnable {
 		this.setDoubleBuffered(true);
 		this.addKeyListener(keyHandler);
 		this.setFocusable(true);
+
 	}
 
 	public void startGameThread() {
@@ -87,18 +88,7 @@ public class GamePanel extends JPanel implements Runnable {
 	};
 
 	public void update() {
-		if (keyHandler.upPressed) {
-			playerY -= playerSpeed;
-		}
-		if (keyHandler.downPressed) {
-			playerY += playerSpeed;
-		}
-		if (keyHandler.rightPressed) {
-			playerX += playerSpeed;
-		}
-		if (keyHandler.leftPressed) {
-			playerX -= playerSpeed;
-		}
+		player.update();
 	}
 
 	public void paintComponent(Graphics g) {
@@ -112,9 +102,8 @@ public class GamePanel extends JPanel implements Runnable {
 		// convert the "g" graphics object to a graphics2d object.
 		Graphics2D g2 = (Graphics2D) g;
 
-		// draw a rectangle and fills with the specified color
-		g2.setColor(Color.white);
-		g2.fillRect(playerX, playerY, tileSize, tileSize);
+		player.draw(g2);
+
 		// free system resources when not used, save memory
 		g2.dispose();
 	}
