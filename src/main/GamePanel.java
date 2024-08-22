@@ -13,33 +13,47 @@ import entities.Player;
 public class GamePanel extends JPanel implements Runnable {
 
 	// SCREEN SETTINGS
-	final int originalTileSize = 16; // 16x16px tile size
+	public final int spriteWidth = 16; // 16x32px tile size
+	public final int spriteHeight = 32;
 	final int scale = 3; // scaling factor of 3 for correct display on modern resolutions
-	public final int tileSize = originalTileSize * scale; // the actual size displayed, 3 times bigger than original
-															// size
-	// (48x48px)
+	public final int scaledSpriteWidth = spriteWidth * scale; // the actual size displayed, 3 times bigger
+	public final int scaledSpriteHeight = spriteHeight * scale;
+
 	final int maxScreenCol = 16;
 	final int maxScreenRow = 12;
-	final int screenWidth = tileSize * maxScreenCol; // 718px
-	final int screenHeight = tileSize * maxScreenRow; // 576px
+	final int screenWidth = scaledSpriteWidth * maxScreenCol;
+	final int screenHeight = scaledSpriteWidth * maxScreenRow;
 
 	// Set game FPS
 	int FPS = 60;
 
-	KeyHandler keyHandler = new KeyHandler();
-
-	Thread gameThread;
-
-	Player player = new Player(this, keyHandler);
+	private KeyHandler keyHandler;
+	private Player player;
+	private Thread gameThread;
 
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-		this.setBackground(Color.black);
+		this.setBackground(Color.GREEN);
 		this.setDoubleBuffered(true);
+		keyHandler = new KeyHandler();
 		this.addKeyListener(keyHandler);
 		this.setFocusable(true);
+		this.requestFocusInWindow(); // request to focus on window
+
+		player = new Player(this, keyHandler);
 
 	}
+
+	// the following function is useful to debug the focus owner
+//	public void printFocusOwner() {
+//		KeyboardFocusManager focusManager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+//		Component focusOwner = focusManager.getFocusOwner();
+//		if (focusOwner != null) {
+//			System.out.println("Current focus owner: " + focusOwner.getClass().getName());
+//		} else {
+//			System.out.println("No component has focus.");
+//		}
+//	}
 
 	public void startGameThread() {
 		gameThread = new Thread(this);
@@ -48,6 +62,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 	@Override
 	public void run() {
+
 		// 1 second in nanoseconds (1000000000) / 60FPS
 		// 1 frame in 0.0166666667 seconds, so in 1 second we will get 60 frames
 		double drawInterval = 1000000000 / FPS;
@@ -83,6 +98,7 @@ public class GamePanel extends JPanel implements Runnable {
 				delta--;
 			}
 
+			// printFocusOwner();
 		}
 
 	};
