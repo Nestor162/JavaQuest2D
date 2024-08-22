@@ -46,9 +46,13 @@ public class Player extends Entity {
 	private void loadSprites() {
 		// Load all sprite frames from spriteSheet
 		downSprites = loadDirectionSprites(0); // Load sprites in the row 0
-		upSprites = loadDirectionSprites(2); // Load sprites in the row 1
-		rightSprites = loadDirectionSprites(1); // Load sprites in the row 2
-		leftSprites = loadDirectionSprites(1); // Load sprites in the row 2
+		upSprites = loadDirectionSprites(2); // Load sprites in the row 2
+		rightSprites = loadDirectionSprites(1); // Load sprites in the row 1
+
+		leftSprites = new BufferedImage[rightSprites.length];
+		for (int i = 0; i < rightSprites.length; i++) {
+			leftSprites[i] = spriteSheet.getFlippedSprite(i, 1);
+		}
 	}
 
 	private BufferedImage[] loadDirectionSprites(int row) {
@@ -99,14 +103,13 @@ public class Player extends Entity {
 	public void draw(Graphics2D g2) {
 		if (currentSprite != null) {
 			g2.drawImage(currentSprite, x, y, gp.scaledSpriteWidth, gp.scaledSpriteHeight, null);
-			// Dibuja un borde alrededor del sprite
-			g2.setColor(java.awt.Color.RED); // Color del borde
-			g2.drawRect(x, y, gp.scaledSpriteWidth, gp.scaledSpriteHeight); // Dibuja el borde
+
+			// Draw a border around the player for debugging
+			g2.setColor(java.awt.Color.RED);
+			g2.drawRect(x, y, gp.scaledSpriteWidth, gp.scaledSpriteHeight);
 		} else {
 			System.err.println("Sprite is not loaded.");
 		}
-//		g2.setColor(Color.white);
-//		g2.fillRect(x, y, gp.tileSize, gp.tileSize); // For debugging
 
 	}
 
