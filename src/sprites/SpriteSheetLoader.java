@@ -1,6 +1,7 @@
 package sprites;
 
 import java.awt.image.BufferedImage;
+import java.awt.image.RasterFormatException;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -20,6 +21,11 @@ public class SpriteSheetLoader {
 	}
 
 	public BufferedImage getSprite(int col, int row) {
-		return spriteSheet.getSubimage(col * tileWidth, row * tileHeight, tileWidth, tileHeight);
+		try {
+			return spriteSheet.getSubimage(col * tileWidth, row * tileHeight, tileWidth, tileHeight);
+		} catch (RasterFormatException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }
