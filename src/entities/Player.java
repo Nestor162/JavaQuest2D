@@ -106,7 +106,7 @@ public class Player extends Entity {
 
 			// Draw a border around the player for debugging
 			// g2.setColor(java.awt.Color.RED);
-			g2.drawRect(x, y, gp.scaledSpriteWidth, gp.scaledSpriteHeight);
+			// g2.drawRect(x, y, gp.scaledSpriteWidth, gp.scaledSpriteHeight);
 		} else {
 			System.err.println("Sprite is not loaded.");
 		}
