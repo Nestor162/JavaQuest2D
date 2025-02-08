@@ -9,6 +9,7 @@ import java.awt.Toolkit;
 import javax.swing.JPanel;
 
 import entities.Player;
+import sprites.TileManager;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -27,6 +28,7 @@ public class GamePanel extends JPanel implements Runnable {
 	// Set game FPS
 	int FPS = 60;
 
+	private TileManager tileManager = new TileManager(this);
 	private KeyHandler keyHandler;
 	private Player player;
 	private Thread gameThread;
@@ -117,6 +119,8 @@ public class GamePanel extends JPanel implements Runnable {
 		// graphics2d class has more functions
 		// convert the "g" graphics object to a graphics2d object.
 		Graphics2D g2 = (Graphics2D) g;
+
+		tileManager.draw(g2);
 
 		player.draw(g2);
 
