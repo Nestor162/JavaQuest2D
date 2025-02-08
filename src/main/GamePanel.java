@@ -20,10 +20,10 @@ public class GamePanel extends JPanel implements Runnable {
 	public final int scaledSpriteWidth = spriteWidth * scale; // the actual size displayed, 3 times bigger
 	public final int scaledSpriteHeight = spriteHeight * scale;
 
-	final int maxScreenCol = 16;
-	final int maxScreenRow = 12;
-	final int screenWidth = scaledSpriteWidth * maxScreenCol;
-	final int screenHeight = scaledSpriteWidth * maxScreenRow;
+	public final int maxScreenCol = 16;
+	public final int maxScreenRow = 12;
+	public final int screenWidth = scaledSpriteWidth * maxScreenCol;
+	public final int screenHeight = scaledSpriteWidth * maxScreenRow;
 
 	// Set game FPS
 	int FPS = 60;
