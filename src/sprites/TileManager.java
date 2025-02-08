@@ -23,19 +23,24 @@ public class TileManager {
 
 		try {
 			tile[0] = new Tile();
+			tile[0].image = ImageIO.read(getClass().getResource("/world/overworld-single/tile000.png")); // grass
+
 			tile[1] = new Tile();
-			tile[0].image = ImageIO.read(getClass().getResource("/world/overworld-single/tile000.png"));
-			tile[1].image = ImageIO.read(getClass().getResource("/world/overworld-single/tile000.png"));
+			tile[1].image = ImageIO.read(getClass().getResource("/world/overworld-single/tile283.png")); // water
+
+			tile[2] = new Tile();
+			tile[2].image = ImageIO.read(getClass().getResource("/world/overworld-single/tile496.png")); // stone
 
 		} catch (IOException e) {
-
 			e.printStackTrace();
 		}
 
 	}
 
 	public void draw(Graphics2D g2) {
-		g2.drawImage(tile[1].image, 0, 0, tileSize, tileSize, null);
+		g2.drawImage(tile[0].image, 0, 0, tileSize, tileSize, null);
+		g2.drawImage(tile[1].image, 48, 0, tileSize, tileSize, null);
+		g2.drawImage(tile[2].image, 96, 0, tileSize, tileSize, null);
 
 	}
 }
