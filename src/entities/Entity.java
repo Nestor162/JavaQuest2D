@@ -1,5 +1,5 @@
 package entities;
 
 public class Entity {
-	public int x, y, speed;
+	public int worldX, worldY, speed;
 }

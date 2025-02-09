@@ -16,6 +16,7 @@ public class GamePanel extends JPanel implements Runnable {
 	// SCREEN SETTINGS
 	public final int spriteWidth = 16; // 16x32px tile size
 	public final int spriteHeight = 32;
+	public final int tileSize = 16 * 3; // tile size * scale factor (3)
 	final int scale = 3; // scaling factor of 3 for correct display on modern resolutions
 	public final int scaledSpriteWidth = spriteWidth * scale; // the actual size displayed, 3 times bigger
 	public final int scaledSpriteHeight = spriteHeight * scale;
@@ -25,12 +26,18 @@ public class GamePanel extends JPanel implements Runnable {
 	public final int screenWidth = scaledSpriteWidth * maxScreenCol;
 	public final int screenHeight = scaledSpriteWidth * maxScreenRow;
 
+	// WORLD SETTINGS
+	public final int maxWorldCol = 50;
+	public final int maxWorldRow = 50;
+	public final int worldWidth = tileSize * maxWorldCol;
+	public final int worldHeight = tileSize * maxWorldRow;
+
 	// Set game FPS
 	int FPS = 60;
 
 	private TileManager tileManager = new TileManager(this);
 	private KeyHandler keyHandler;
-	private Player player;
+	public Player player;
 	private Thread gameThread;
 
 	public GamePanel() {

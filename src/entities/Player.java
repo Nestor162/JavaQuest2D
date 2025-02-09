@@ -12,6 +12,9 @@ public class Player extends Entity {
 	GamePanel gp;
 	KeyHandler keyH;
 
+	public final int screenX;
+	public final int screenY;
+
 	private SpriteSheetLoader spriteSheet;
 
 	// create arrays to save the sprites for every direction
@@ -29,6 +32,9 @@ public class Player extends Entity {
 	public Player(GamePanel gp, KeyHandler keyH) {
 		this.gp = gp;
 		this.keyH = keyH;
+
+		screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
+		screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
 
 		setDefaultValues();
 		initializeResources();
@@ -64,30 +70,30 @@ public class Player extends Entity {
 	}
 
 	public void setDefaultValues() {
-		x = 100;
-		y = 100;
+		worldX = 0;
+		worldY = 0;
 		speed = 4;
 	}
 
 	public void update() {
 		if (keyH.upPressed) {
 			currentSprite = upSprites[spriteIndex];
-			y -= speed;
+			worldY -= speed;
 			updateAnimation();
 		}
 		if (keyH.downPressed) {
 			currentSprite = downSprites[spriteIndex];
-			y += speed;
+			worldY += speed;
 			updateAnimation();
 		}
 		if (keyH.rightPressed) {
 			currentSprite = rightSprites[spriteIndex];
-			x += speed;
+			worldX += speed;
 			updateAnimation();
 		}
 		if (keyH.leftPressed) {
 			currentSprite = leftSprites[spriteIndex];
-			x -= speed;
+			worldX -= speed;
 			updateAnimation();
 		}
 	}
@@ -102,7 +108,7 @@ public class Player extends Entity {
 
 	public void draw(Graphics2D g2) {
 		if (currentSprite != null) {
-			g2.drawImage(currentSprite, x, y, gp.scaledSpriteWidth, gp.scaledSpriteHeight, null);
+			g2.drawImage(currentSprite, screenX, screenY, gp.scaledSpriteWidth, gp.scaledSpriteHeight, null);
 
 			// Draw a border around the player for debugging
 			// g2.setColor(java.awt.Color.RED);
